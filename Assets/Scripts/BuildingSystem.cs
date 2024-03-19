@@ -44,6 +44,7 @@ public class BuildingSystem : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
+                buildingPrefabClone.AddComponent<BoxCollider2D>();
                 isPlacing = false;
             }
         }
