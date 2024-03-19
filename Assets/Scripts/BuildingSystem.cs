@@ -32,6 +32,17 @@ public class BuildingSystem : MonoBehaviour
         clonesLocation = GameObject.FindGameObjectWithTag("buildingsParent");
     }
 
+    public void onButtonChoice()
+    {
+        if (!isPlacing)
+        {
+            buildingPrefabClone = Instantiate(buildingPrefab, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+            buildingPrefabClone.name = buildingPrefab.name;
+            buildingPrefabClone.transform.parent = clonesLocation.transform;
+            isPlacing = true;
+        }
+    }
+
     private void Update()
     {
         if (isPlacing)
@@ -49,16 +60,5 @@ public class BuildingSystem : MonoBehaviour
                 isPlacing = false;
             }
         }
-    }
-
-    public void onButtonChoice()
-    {
-        if (!isPlacing)
-        {
-            buildingPrefabClone = Instantiate(buildingPrefab, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
-            buildingPrefabClone.name = buildingPrefab.name;
-            buildingPrefabClone.transform.parent = clonesLocation.transform;
-            isPlacing = true;
-        }
-    }    
+    }  
 }
