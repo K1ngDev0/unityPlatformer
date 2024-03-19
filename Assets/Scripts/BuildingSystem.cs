@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -43,8 +44,8 @@ public class BuildingSystem : MonoBehaviour
             buildingPrefabClone.transform.position = new Vector2(snappedX, snappedY);
 
             if (Input.GetMouseButtonDown(0))
-            {
-                buildingPrefabClone.AddComponent<BoxCollider2D>();
+            {   
+                buildingPrefabClone.GetComponent<BoxCollider2D>().isTrigger = false;
                 isPlacing = false;
             }
         }

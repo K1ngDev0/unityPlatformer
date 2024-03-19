@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - buildingsParent
+  - building
   layers:
   - Default
   - TransparentFX
