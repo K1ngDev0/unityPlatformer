@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class BuildingSystem : MonoBehaviour
 {
@@ -10,13 +12,23 @@ public class BuildingSystem : MonoBehaviour
     
     GameObject clonesLocation;
 
+    SpriteRenderer buildingPrefabSprite;
+    [SerializeField] Image UIBuilding;
+
     public float gridSize = 1f;
 
     [SerializeField] private bool isPlacing = false;
 
+    private void Start()
+    {
+        UIBuilding = UIBuilding.GetComponent<Image>();
+        buildingPrefabSprite = buildingPrefab.GetComponent<SpriteRenderer>();
+        UIBuilding.sprite = buildingPrefabSprite.sprite;
+    }
+
     private void Awake()
     {
-        clonesLocation = new GameObject("Buildings");
+        clonesLocation = GameObject.FindGameObjectWithTag("buildingsParent");
     }
 
     private void Update()
@@ -39,9 +51,12 @@ public class BuildingSystem : MonoBehaviour
 
     public void onButtonChoice()
     {
-        buildingPrefabClone = Instantiate(buildingPrefab, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
-        buildingPrefabClone.name = buildingPrefab.name;
-        buildingPrefabClone.transform.parent = clonesLocation.transform;
-        isPlacing = true;
+        if (!isPlacing)
+        {
+            buildingPrefabClone = Instantiate(buildingPrefab, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+            buildingPrefabClone.name = buildingPrefab.name;
+            buildingPrefabClone.transform.parent = clonesLocation.transform;
+            isPlacing = true;
+        }
     }    
 }
