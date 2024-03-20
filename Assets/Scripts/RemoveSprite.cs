@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class RemoveSprite : MonoBehaviour
@@ -8,6 +9,7 @@ public class RemoveSprite : MonoBehaviour
     {
         if (gameObject.GetComponent<BoxCollider2D>().isTrigger == false)
         {
+
             if (Input.GetMouseButtonDown(1))
             {
                 Destroy(gameObject);
