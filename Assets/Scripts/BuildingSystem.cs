@@ -10,6 +10,7 @@ public class BuildingSystem : MonoBehaviour
 {
 
     private GameObject buildingPrefabClone;
+    public GameObject currentBuildingPrefab;
     public Sprite canBuildSprite;
     public Sprite cantBuildSprite;
 
@@ -18,7 +19,8 @@ public class BuildingSystem : MonoBehaviour
     GameObject clonesLocation;
     public float gridSize = 1f;
 
-    [SerializeField] private bool isPlacing = false;
+    private bool isPlacing = false;
+    private bool keepBuilding = false;
     public float playerReach = 5f;
 
     private void Start()
@@ -49,13 +51,16 @@ public class BuildingSystem : MonoBehaviour
 
                 if (IsBuildable())
                 {
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonUp(0))
                     {
-                        buildingPrefabClone.layer = LayerMask.NameToLayer("Ground");
-                        buildingPrefabClone.GetComponent<SpriteRenderer>().sortingOrder = 0;
-                        buildingPrefabClone.GetComponent<BoxCollider2D>().isTrigger = false;
-                        buildingPrefabClone.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-                        isPlacing = false;
+                        keepBuilding = false;
+                        build();
+                    }
+                    if (Input.GetMouseButton(0))
+                    {
+                        keepBuilding = true;
+
+                        if (keepBuilding) build();
                     }
                 }
                 else if (!IsBuildable())
@@ -67,21 +72,44 @@ public class BuildingSystem : MonoBehaviour
             {
                 buildingPrefabClone.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cantBuildSprite;
             }
+
+            if (Input.GetMouseButtonDown(1))
+            {
+                Destroy(buildingPrefabClone);
+                isPlacing = false;
+            }
+
+            
         }
     }
 
+    //Creates the building given by the button when clicking on the button
     public void onButtonChoice(GameObject buildingPrefab)
     {
-        if (!isPlacing)
-        {
-            buildingPrefabClone = Instantiate(buildingPrefab, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
-            buildingPrefabClone.GetComponent<SpriteRenderer>().sortingOrder = 1;
-            buildingPrefabClone.GetComponent<BoxCollider2D>().isTrigger = true;
-            buildingPrefabClone.name = buildingPrefab.name;
-            buildingPrefabClone.transform.parent = clonesLocation.transform;
-            isPlacing = true;
-        }
+        currentBuildingPrefab = buildingPrefab;
+        createBuilding();
+        isPlacing = true;
     }
+    public void createBuilding()
+    {
+        buildingPrefabClone = Instantiate(currentBuildingPrefab, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+        buildingPrefabClone.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        buildingPrefabClone.GetComponent<BoxCollider2D>().isTrigger = true;
+        buildingPrefabClone.name = currentBuildingPrefab.name;
+        buildingPrefabClone.transform.parent = clonesLocation.transform;
+    }
+
+    public void build()
+    {
+        if (isPlacing)
+        {
+            buildingPrefabClone.layer = LayerMask.NameToLayer("Ground");
+            buildingPrefabClone.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            buildingPrefabClone.GetComponent<BoxCollider2D>().isTrigger = false;
+            buildingPrefabClone.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            createBuilding();
+        }
+    }   
 
     private bool IsBuildable()
     {
