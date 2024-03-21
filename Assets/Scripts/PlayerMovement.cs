@@ -61,6 +61,16 @@ public class PlayerMovement : MonoBehaviour
 
             coyoteCounter = 0f;
         }
+
+        if (Input.GetAxisRaw("Horizontal") == 1)
+        {
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if (Input.GetAxisRaw("Horizontal") == -1)
+        {
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
+
     }
     private void FixedUpdate()
     {
