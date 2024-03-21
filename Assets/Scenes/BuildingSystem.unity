@@ -527,8 +527,8 @@ Transform:
   - {fileID: 1168816269}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &88197662
-BoxCollider2D:
+--- !u!70 &88197662
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -536,7 +536,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 88197656}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 6606edd80a3747b4cb6e8ef9b7048a00, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -560,18 +560,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.46875, y: 0.9375}
-    newSize: {x: 0.46875, y: 0.9375}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
   m_Size: {x: 0.46875, y: 0.9375}
-  m_EdgeRadius: 0
+  m_Direction: 0
 --- !u!1 &265434869
 GameObject:
   m_ObjectHideFlags: 0
