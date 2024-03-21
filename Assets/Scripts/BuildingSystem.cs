@@ -19,7 +19,7 @@ public class BuildingSystem : MonoBehaviour
     public float gridSize = 1f;
 
     [SerializeField] private bool isPlacing = false;
-    [SerializeField] private float playerReach = 5f;
+    public float playerReach = 5f;
 
     private void Start()
     {
