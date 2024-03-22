@@ -83,9 +83,9 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
-    //Creates the building given by the button when clicking on the button
     public void onButtonChoice(GameObject buildingPrefab)
     {
+        Destroy(buildingPrefabClone);
         currentBuildingPrefab = buildingPrefab;
         createBuilding();
         isPlacing = true;
