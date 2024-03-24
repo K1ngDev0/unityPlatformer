@@ -8,6 +8,8 @@ public class RemoveSprite : MonoBehaviour
     private GameObject buildingSystem;
     private GameObject player;
 
+    public int buildingAmount;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");

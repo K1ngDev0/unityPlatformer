@@ -37,19 +37,23 @@ public class BuildingSystem : MonoBehaviour
     {
         if (isPlacing)
         {
+
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             float snappedX = Mathf.Round(mousePosition.x / gridSize) * gridSize;
             float snappedY = Mathf.Round(mousePosition.y / gridSize) * gridSize;
 
-            buildingPrefabClone.transform.position = new Vector2(snappedX, snappedY);
+            Vector2 position = buildingPrefabClone.transform.position / buildingPrefabClone.transform.localScale.x;
+
+            position = new Vector2(snappedX, snappedY);
+
             buildingPrefabClone.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
 
             if (Vector2.Distance(player.transform.position, buildingPrefabClone.transform.position) <= playerReach)
             {
                 buildingPrefabClone.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = canBuildSprite;
 
-                if (IsBuildable())
+                if (IsBuildable() && buildingPrefabClone.GetComponent<RemoveSprite>().buildingAmount != 0)
                 {
                     if (Input.GetMouseButtonUp(0))
                     {
@@ -63,7 +67,7 @@ public class BuildingSystem : MonoBehaviour
                         if (keepBuilding) build();
                     }
                 }
-                else if (!IsBuildable())
+                else if (!IsBuildable() || buildingPrefabClone.GetComponent<RemoveSprite>().buildingAmount == 0)
                 {
                     buildingPrefabClone.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = cantBuildSprite;
                 }
@@ -107,6 +111,7 @@ public class BuildingSystem : MonoBehaviour
             buildingPrefabClone.GetComponent<SpriteRenderer>().sortingOrder = 0;
             buildingPrefabClone.GetComponent<BoxCollider2D>().isTrigger = false;
             buildingPrefabClone.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+            currentBuildingPrefab.GetComponent<RemoveSprite>().buildingAmount = -1;
             createBuilding();
         }
     }   
