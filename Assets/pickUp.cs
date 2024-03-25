@@ -8,6 +8,7 @@ public class pickUp : MonoBehaviour
     GameObject player;
 
     bool isPickedUp = false;
+    bool canPickUp = true;
 
     private void Start()
     {
@@ -16,7 +17,16 @@ public class pickUp : MonoBehaviour
 
     private void Update()
     {
-        if (isPickedUp)
+        if (!GetComponent<BoxCollider2D>().isTrigger)
+        {
+            canPickUp = true;
+        }
+        else
+        {
+            canPickUp = false;
+        }
+
+        if (isPickedUp && canPickUp)
         {
             player.transform.position = pickupPivot.transform.position;
         }
