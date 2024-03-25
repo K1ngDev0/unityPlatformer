@@ -43,9 +43,7 @@ public class BuildingSystem : MonoBehaviour
             float snappedX = Mathf.Round(mousePosition.x / gridSize) * gridSize;
             float snappedY = Mathf.Round(mousePosition.y / gridSize) * gridSize;
 
-            Vector2 position = buildingPrefabClone.transform.position / buildingPrefabClone.transform.localScale.x;
-
-            position = new Vector2(snappedX, snappedY);
+            buildingPrefabClone.transform.position = new Vector2(snappedX, snappedY);
 
             buildingPrefabClone.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
 
@@ -118,7 +116,7 @@ public class BuildingSystem : MonoBehaviour
 
     private bool IsBuildable()
     {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(buildingPrefabClone.transform.position, Vector2.one * gridSize / 2, 0);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(buildingPrefabClone.transform.position, Vector2.one * gridSize / 2 * buildingPrefabClone.transform.localScale, 0);
 
         foreach (Collider2D collider in colliders)
         {    
