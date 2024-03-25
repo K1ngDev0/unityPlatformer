@@ -5,15 +5,11 @@ using UnityEngine;
 public class pickUp : MonoBehaviour
 {
     public GameObject pickupPivot;
-    GameObject player;
+
+    public GameObject collidersGameObject;
 
     bool isPickedUp = false;
     bool canPickUp = true;
-
-    private void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
 
     private void Update()
     {
@@ -28,15 +24,16 @@ public class pickUp : MonoBehaviour
 
         if (isPickedUp && canPickUp)
         {
-            player.transform.position = pickupPivot.transform.position;
+            collidersGameObject.transform.position = pickupPivot.transform.position;
         }
     }
 
-    //pickup player on trigger entered
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Item")
         {
+            Debug.Log("Picked up " + collision.name);
+            collidersGameObject = collision.gameObject;
             isPickedUp = true;
         }
     }
