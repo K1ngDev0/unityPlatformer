@@ -8,8 +8,15 @@ public class pickUp : MonoBehaviour
 
     public GameObject collidersGameObject;
 
+    Animator anim;
+
     bool isPickedUp = false;
     bool canPickUp = true;
+
+    private void Start()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -37,6 +44,12 @@ public class pickUp : MonoBehaviour
             isPickedUp = true;
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        anim.StopPlayback();
+    }
+
     public void drop()
     {
         isPickedUp = false;
