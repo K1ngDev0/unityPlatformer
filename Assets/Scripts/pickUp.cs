@@ -16,6 +16,7 @@ public class pickUp : MonoBehaviour
     private void Start()
     {
         anim = GetComponent<Animator>();
+        anim.enabled = false;
     }
 
     private void Update()
@@ -47,11 +48,16 @@ public class pickUp : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        anim.StopPlayback();
+        anim.enabled = true;
     }
 
     public void drop()
     {
         isPickedUp = false;
+    }
+
+    public void onAnimationEnd()
+    {
+        anim.enabled = false;
     }
 }

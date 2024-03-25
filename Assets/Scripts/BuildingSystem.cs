@@ -5,10 +5,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 
 public class BuildingSystem : MonoBehaviour
 {
-
     private GameObject buildingPrefabClone;
     public GameObject currentBuildingPrefab;
     public Sprite canBuildSprite;
