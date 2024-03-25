@@ -40,8 +40,13 @@ public class BuildingSystem : MonoBehaviour
 
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+            // Calculate snapped position based on bottom-left corner
             float snappedX = Mathf.Round(mousePosition.x / gridSize) * gridSize;
             float snappedY = Mathf.Round(mousePosition.y / gridSize) * gridSize;
+
+            // Adjust for larger building size
+            snappedX -= (currentBuildingPrefab.transform.localScale.x - 1) * gridSize / 2;
+            snappedY -= (currentBuildingPrefab.transform.localScale.y - 1) * gridSize / 2;
 
             buildingPrefabClone.transform.position = new Vector2(snappedX, snappedY);
 

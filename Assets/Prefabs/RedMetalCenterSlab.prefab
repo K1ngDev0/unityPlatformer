@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 2195910401931745063}
   - component: {fileID: 4682945277869906434}
   m_Layer: 0
-  m_Name: BuildingBlock 2
+  m_Name: RedMetalCenterSlab
   m_TagString: building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
