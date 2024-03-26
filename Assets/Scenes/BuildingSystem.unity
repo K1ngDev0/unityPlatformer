@@ -5782,7 +5782,7 @@ GameObject:
   - component: {fileID: 1104765024}
   - component: {fileID: 1104765022}
   - component: {fileID: 1104765026}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Coal
   m_TagString: Item
   m_Icon: {fileID: 0}
@@ -5902,16 +5902,16 @@ CircleCollider2D:
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   m_CallbackLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
