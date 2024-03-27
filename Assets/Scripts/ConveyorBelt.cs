@@ -8,7 +8,7 @@ public class ConveyorBelt : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Item") || collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             collision.transform.position += new Vector3(speed * Time.deltaTime, 0, 0);
         }

@@ -21,6 +21,8 @@ public class BuildingSystem : MonoBehaviour
 
     private bool isPlacing = false;
     private bool keepBuilding = false;
+    private bool isFlipped = false;
+
     public float playerReach = 5f;
 
     private void Start()
@@ -35,16 +37,21 @@ public class BuildingSystem : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (isPlacing)
+            {
+                FlipSprite();
+            }
+        }
+
         if (isPlacing)
         {
-
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            // Calculate snapped position based on bottom-left corner
             float snappedX = Mathf.Round(mousePosition.x / gridSize) * gridSize;
             float snappedY = Mathf.Round(mousePosition.y / gridSize) * gridSize;
 
-            // Adjust for larger building size
             snappedX -= (currentBuildingPrefab.transform.localScale.x - 1) * gridSize / 2;
             snappedY -= (currentBuildingPrefab.transform.localScale.y - 1) * gridSize / 2;
 
@@ -90,6 +97,16 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
+    private void FlipSprite()
+    {
+        if (buildingPrefabClone != null)
+        {
+            isFlipped = !isFlipped;
+
+            buildingPrefabClone.transform.localScale = new Vector3(-buildingPrefabClone.transform.localScale.x, buildingPrefabClone.transform.localScale.y, buildingPrefabClone.transform.localScale.z);
+        }
+    }
+
     public void onButtonChoice(GameObject buildingPrefab)
     {
         Destroy(buildingPrefabClone);
@@ -97,10 +114,12 @@ public class BuildingSystem : MonoBehaviour
         createBuilding();
         isPlacing = true;
     }
+
     public void createBuilding()
     {
         buildingPrefabClone = Instantiate(currentBuildingPrefab, (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
         buildingPrefabClone.GetComponent<SpriteRenderer>().sortingOrder = 1;
+        buildingPrefabClone.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, .5f);
         buildingPrefabClone.GetComponent<BoxCollider2D>().isTrigger = true;
         buildingPrefabClone.name = currentBuildingPrefab.name;
         buildingPrefabClone.transform.parent = clonesLocation.transform;
@@ -110,8 +129,13 @@ public class BuildingSystem : MonoBehaviour
     {
         if (isPlacing)
         {
+            if (keepBuilding)
+            {
+                FlipSprite();
+            }
             buildingPrefabClone.layer = LayerMask.NameToLayer("Ground");
             buildingPrefabClone.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            buildingPrefabClone.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
             buildingPrefabClone.GetComponent<BoxCollider2D>().isTrigger = false;
             buildingPrefabClone.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
             currentBuildingPrefab.GetComponent<RemoveSprite>().buildingAmount = -1;
