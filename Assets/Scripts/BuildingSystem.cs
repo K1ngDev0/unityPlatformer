@@ -129,10 +129,6 @@ public class BuildingSystem : MonoBehaviour
     {
         if (isPlacing)
         {
-            if (keepBuilding)
-            {
-                FlipSprite();
-            }
             buildingPrefabClone.layer = LayerMask.NameToLayer("Ground");
             buildingPrefabClone.GetComponent<SpriteRenderer>().sortingOrder = 0;
             buildingPrefabClone.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
